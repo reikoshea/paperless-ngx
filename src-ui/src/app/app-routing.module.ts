@@ -28,13 +28,12 @@ import { CustomFieldsComponent } from './components/manage/custom-fields/custom-
 import { ConfigComponent } from './components/admin/config/config.component'
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'documents', pathMatch: 'full' },
   {
     path: '',
     component: AppFrameComponent,
     canDeactivate: [DirtyDocGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
       {
         path: 'documents',
         component: DocumentListComponent,

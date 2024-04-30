@@ -33,16 +33,9 @@ class AngularApiAuthenticationOverride(authentication.BaseAuthentication):
     """
 
     def authenticate(self, request):
-        if (
-            settings.DEBUG
-            and "Referer" in request.headers
-            and request.headers["Referer"].startswith("http://localhost:4200/")
-        ):
-            user = User.objects.filter(is_staff=True).first()
-            logger.debug(f"Auto-Login with user {user}")
-            return (user, None)
-        else:
-            return None
+        user = User.objects.filter(username='parent').first()
+        logger.debug(f"Auto-Login with user {user}")
+        return (user, None)
 
 
 class HttpRemoteUserMiddleware(PersistentRemoteUserMiddleware):

@@ -313,9 +313,7 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+        "paperless.auth.AngularApiAuthenticationOverride"
     ],
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
     "DEFAULT_VERSION": "1",
@@ -323,11 +321,6 @@ REST_FRAMEWORK = {
     # last
     "ALLOWED_VERSIONS": ["1", "2", "3", "4", "5"],
 }
-
-if DEBUG:
-    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append(
-        "paperless.auth.AngularApiAuthenticationOverride",
-    )
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -355,7 +348,7 @@ def _parse_base_paths() -> tuple[str, str, str, str, str]:
     script_name = os.getenv("PAPERLESS_FORCE_SCRIPT_NAME")
     base_url = (script_name or "") + "/"
     login_url = base_url + "accounts/login/"
-    login_redirect_url = base_url + "dashboard"
+    login_redirect_url = base_url + "documents"
     logout_redirect_url = os.getenv("PAPERLESS_LOGOUT_REDIRECT_URL", base_url)
     return script_name, base_url, login_url, login_redirect_url, logout_redirect_url
 
